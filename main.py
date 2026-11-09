@@ -22,3 +22,7 @@ async def create_task(task: TaskCreate): # Checks against the "rules" > title: s
     next_task_id += 1 # Increments counter for the next request
         
     return new_task # Return Task
+
+@app.get("/tasks/{task_id}") # {task_id} is a placeholder in the URL. If you open /tasks/1, FastAPI passes 1 to the function
+def get_task(task_id: int): # Read {task_id} as int (Whole Number)
+    return todo_db.get(task_id) # Return Task with specified ID
