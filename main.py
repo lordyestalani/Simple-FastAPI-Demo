@@ -9,6 +9,9 @@ next_task_id = 1 # Task ID Counter
 class TaskCreate(BaseModel): # Defines a Pydantic Model for the data someone sends to create a task
     title: str # What a piece of data should contain
 
+class TaskUpdate(BaseModel): # Defines a Pydantic Model for the data someone sends to update a task's completion status
+    done: bool # what a piece of data should contain
+
 @app.get("/tasks") # Tells FastAPI to call this function when it receives a GET request at /tasks
 def list_tasks(): # Defines the function 
     return list(todo_db.values()) # Return list
