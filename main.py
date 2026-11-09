@@ -1,4 +1,4 @@
-from fastapi import FastAPI # Imports Fast API
+from fastapi import FastAPI, HTTPException # Imports Fast API and HTTPException
 from pydantic import BaseModel # Imports Base Model
 
 app = FastAPI() # Creates the App Object
@@ -25,4 +25,9 @@ async def create_task(task: TaskCreate): # Checks against the "rules" > title: s
 
 @app.get("/tasks/{task_id}") # {task_id} is a placeholder in the URL. If you open /tasks/1, FastAPI passes 1 to the function
 def get_task(task_id: int): # Read {task_id} as int (Whole Number)
-    return todo_db.get(task_id) # Return Task with specified ID
+    task = todo_db.get(task_id) # Return Task with specified ID
+
+    if task is None: # Function if task does not exist (No existing ID)
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    return task
