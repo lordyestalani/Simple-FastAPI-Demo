@@ -14,5 +14,11 @@ def list_tasks(): # Defines the function
     return list(todo_db.values()) # Return list
 
 @app.post("/tasks") # Tells FastAPI to call this function when it receives a POST request at /tasks
-def create_task(task: TaskCreate): # Checks against the "rules" > title: str as defined in TaskCreate Class
-    return {"title": task.title} # Return title
+async def create_task(task: TaskCreate): # Checks against the "rules" > title: str as defined in TaskCreate Class
+    global next_task_id # Update the Task ID Counter
+
+    new_task = {"id": next_task_id, "title": task.title, "done": False} # Builds the task with its ID, "done" set to False as default
+    todo_db[next_task_id] = new_task # Saves it under that ID
+    next_task_id += 1 # Increments counter for the next request
+        
+    return new_task # Return Task
