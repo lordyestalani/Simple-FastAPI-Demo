@@ -1,4 +1,5 @@
 from fastapi import FastAPI # Imports Fast API
+from pydantic import BaseModel # Imports Base Model
 
 app = FastAPI() # Creates the App Object
 
