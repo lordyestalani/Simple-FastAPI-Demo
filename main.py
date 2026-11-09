@@ -40,3 +40,8 @@ async def update_task(task_id: int, update: TaskUpdate): # Read {task_id} as int
     task = get_task(task_id) # Calls get_task function 
     task["done"] = update.done # Updates task
     return task # Return Task
+
+@app.delete("/tasks/{task_id}", status_code=204)  # {task_id} is a placeholder in the URL. Error 204 means "No Content" meaning deletion is successful
+async def delete_task(task_id: int): # Read {task_id} as int (Whole Number)
+    get_task(task_id) # get_task function
+    del todo_db[task_id] # Removes task from dictionary
