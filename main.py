@@ -4,6 +4,7 @@ from pydantic import BaseModel # Imports Base Model
 app = FastAPI() # Creates the App Object
 
 todo_db = {} # Creates an empty python dictionary
+next_task_id = 1 # Task ID Counter
 
 class TaskCreate(BaseModel): # Defines a Pydantic Model for the data someone sends to create a task
     title: str # What a piece of data should contain
