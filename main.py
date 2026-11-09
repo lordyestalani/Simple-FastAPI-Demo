@@ -11,3 +11,7 @@ class TaskCreate(BaseModel): # Defines a Pydantic Model for the data someone sen
 @app.get("/tasks") # Tells FastAPI to call this function when it receives a GET request at /tasks
 def list_tasks(): # Defines the function 
     return list(todo_db.values()) # Return list
+
+@app.post("/tasks") # Tells FastAPI to call this function when it receives a POST request at /tasks
+def create_task(task: TaskCreate): # Checks against the "rules" > title: str as defined in TaskCreate Class
+    return {"title": task.title} # Return title
