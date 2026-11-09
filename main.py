@@ -33,4 +33,10 @@ def get_task(task_id: int): # Read {task_id} as int (Whole Number)
     if task is None: # Function if task does not exist (No existing ID)
         raise HTTPException(status_code=404, detail="Task not found")
 
-    return task
+    return task # Return Task
+
+@app.patch("/tasks/{task_id}") # {task_id} is a placeholder in the URL. If you open /tasks/1, FastAPI passes 1 to the function
+async def update_task(task_id: int, update: TaskUpdate): # Read {task_id} as int (Whole Number), Checks against the "rules" > done: bool as defined in TaskUpdate Class
+    task = get_task(task_id) # Calls get_task function 
+    task["done"] = update.done # Updates task
+    return task # Return Task
